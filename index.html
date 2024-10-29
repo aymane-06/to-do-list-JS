@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+<body class="bg-primary bg-gradient">
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div class="tasks">
+            <h2>Add a new to-do:</h2>
+            <form action="" id="addtaskform">
+                <div class="name-disc">
+                    <label for="task_name">Name*:
+                    <input type="text" id="task_name" placeholder="name for the task you’re going to do" required>
+                    </label>
+                    <label for="task_discription" style="display: flex;justify-content: end;margin-left: 53px;gap: 6px;">Description*:
+                        <input type="text" id="task_discription" placeholder="a short description of the task - can be omitted">
+                </label>
+                </div>
+                <div class="date_time">
+                <label for="date">Date*:
+                    <input type="date" id="date"  required>
+                </label>
+                <label for="time">Time:
+                    <input type="time" id="time">
+                </label>
+                <label for="type" class="type">Type:
+                    <select name="type" id="type" required>
+                        <option value=""></option>
+                        <option value="To-Do">To Do</option>
+                        <option value="Doing">Doing</option>
+                        <option value="Done">Done</option>
+                    </select>
+                </label>
+                <div class="btn">
+                <button onclick="addTask()">Add</button>
+                <button type="reset">Cancel</button>
+                </div>
+            </div>
+                
+
+            </form>
+        </div>
+        <div class="show_task">
+            <table >
+                <thead>
+                <th>ID</th>
+                <th>Task</th>
+                <th>Description</th>
+                <th>When</th>
+                <th>Type</th>
+                <th style="width: 50px;">Edit</th>
+                <th style="width: 50px;">Delete</th>
+            </thead>
+            <tbody id="taskslist">
+               <th colspan="7">NO Tasks ADDED!!!</th>
+            </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

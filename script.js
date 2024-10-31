@@ -1,7 +1,8 @@
 let tasks = [];
 let counter = 0;
 let task = {};
-
+tasks=JSON.parse(localStorage.storage);
+showtasks();
 function addTask() {
   task = {
     id: counter + 1,
@@ -11,6 +12,7 @@ function addTask() {
     time: document.getElementById("time").value,
     type: document.getElementById("type").value,
   };
+  
   if (
     task &&
     task.taskName &&
@@ -23,6 +25,7 @@ function addTask() {
     counter++;
     showtasks();
     document.getElementById("addtaskform").reset();
+    localStorage.setItem('storage',JSON.stringify(tasks));
   }
 }
 
@@ -43,6 +46,15 @@ function showtasks() {
                                 ${tasks[i].time}`;
     const tableTaskType = document.createElement("td");
     tableTaskType.textContent = `${tasks[i].type}`;
+    switch(tasks[i].type){
+      case "To-Do" :tableTaskType.style.color="black";
+                break;
+      case "Doing" :tableTaskType.style.color="orange";
+                break;
+      case "Done"  :tableTaskType.style.color="green";
+                break;
+
+    };
     const editcontainer = document.createElement("td");
     const editbutton = document.createElement("button");
     let index=i
@@ -50,8 +62,9 @@ function showtasks() {
     editbutton.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
     const deletecontainer = document.createElement("td");
     const deletebutton = document.createElement("button");
+    deletebutton.setAttribute("onclick", `deleteTask(${index})`);
     deletebutton.innerHTML = `<i class="fa-solid fa-calendar-xmark"></i>`;
-    //chidsupport
+    //childsupport
     tasksList.appendChild(tablerow);
     tablerow.appendChild(tableID);
     tablerow.appendChild(tableTaskName);
@@ -62,9 +75,16 @@ function showtasks() {
     editcontainer.appendChild(editbutton);
     tablerow.appendChild(deletecontainer);
     deletecontainer.appendChild(deletebutton);
+    const buttoncontaier= document.getElementById("EditButton");
+    buttoncontaier.textContent=`Add`;
+    buttoncontaier.setAttribute("onclick","addTask()");
+    
   }
 }
 function editTasks(index) {
+  const buttoncontaier= document.getElementById("EditButton");
+  buttoncontaier.textContent=`Save`;
+  buttoncontaier.setAttribute("onclick","showtasks()");
   let tableTaskName = document.getElementsByTagName("tr")[index+1];
   let tName = tableTaskName.getElementsByTagName("td")[1];
   tName.innerHTML = `<input type="text" required value="${tasks[index].taskName}">`;
@@ -98,5 +118,12 @@ function editTasks(index) {
   inputType.addEventListener("blur", () => {
   tasks[index].type = inputType.value;
   tType.innerHTML = `<td>${tasks[index].type}</td>`;
+  localStorage.storage=JSON.stringify(tasks);
 });
+} 
+function deleteTask(index){
+  tasks.splice(index,1);
+  localStorage.storage=JSON.stringify(tasks);
+  showtasks();
+
 }

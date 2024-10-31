@@ -29,15 +29,15 @@
                     <input type="time" id="time" required>
                 </label>
                 <label for="type" class="type">Type*:
-                    <select name="type" id="type" required>
+                    <select name="type" id="type" class="type" required>
                         <option value=""></option>
                         <option value="To-Do">To Do</option>
                         <option value="Doing">Doing</option>
                         <option value="Done">Done</option>
                     </select>
                 </label>
-                <div class="btn">
-                <button onclick="addTask()">Add</button>
+                <div id="btn" class="btn">
+                <button id="EditButton" type="button" onclick="addTask()">Add</button>
                 <button type="reset">Cancel</button>
                 </div>
             </div>

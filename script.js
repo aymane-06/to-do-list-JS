@@ -35,6 +35,7 @@ function showtasks() {
 
   for (let i = 0; i < tasks.length; i++) {
     const tablerow = document.createElement("tr");
+    tablerow.style.background = stausVerification(i);
     const tableID = document.createElement("td");
     tableID.textContent = `${tasks[i].id}`;
     const tableTaskName = document.createElement("td");
@@ -57,7 +58,7 @@ function showtasks() {
     };
     const editcontainer = document.createElement("td");
     const editbutton = document.createElement("button");
-    let index=i
+    let index=i;
     editbutton.setAttribute("onclick", `editTasks(${index})`);
     editbutton.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
     const deletecontainer = document.createElement("td");
@@ -126,4 +127,16 @@ function deleteTask(index){
   localStorage.storage=JSON.stringify(tasks);
   showtasks();
 
+}
+function stausVerification(index){
+  let currentDate = new Date();
+  let deadline = new Date(tasks[index].date);
+  let delai=(deadline-currentDate)/(1000*60*60*20);
+  console.log(delai);
+  if(delai<=-1){
+      return "red";
+  }
+  else if(delai<=2){
+    return "orange";
+  }  
 }

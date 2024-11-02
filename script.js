@@ -2,6 +2,7 @@ let tasks = [];
 let counter = 0;
 let task = {};
 tasks=JSON.parse(localStorage.storage);
+counter=JSON.parse(localStorage.counter);
 showtasks();
 function addTask() {
   task = {
@@ -26,6 +27,7 @@ function addTask() {
     showtasks();
     document.getElementById("addtaskform").reset();
     localStorage.setItem('storage',JSON.stringify(tasks));
+    localStorage.setItem("counter",JSON.stringify(counter));
   }
 }
 
@@ -93,6 +95,7 @@ function editTasks(index) {
   input.addEventListener("blur", () => {
   tasks[index].taskName = input.value;
   tName.innerHTML = `<td>${tasks[index].taskName}</td>`;
+  localStorage.storage=JSON.stringify(tasks);
 });
   let tdesc = tableTaskName.getElementsByTagName("td")[2];
   tdesc.innerHTML = `<input type="text" required value="${tasks[index].discription}">`;
@@ -100,6 +103,7 @@ function editTasks(index) {
   inputD.addEventListener("blur", () => {
   tasks[index].discription = inputD.value;
   tdesc.innerHTML = `<td>${tasks[index].discription}</td>`;
+  localStorage.storage=JSON.stringify(tasks);
 });
   let tdate = tableTaskName.getElementsByTagName("td")[3];
   tdate.innerHTML = `<input type="datetime-local" required value="${tasks[index].date}">`;
@@ -107,6 +111,7 @@ function editTasks(index) {
   inputDate.addEventListener("blur", () => {
   tasks[index].date = inputDate.value;
   tdate.innerHTML = `<td>${tasks[index].date}</td>`;
+  localStorage.storage=JSON.stringify(tasks);
 });
   let tType = tableTaskName.getElementsByTagName("td")[4];
   tType.innerHTML = `<select name="type" id="type" required>
@@ -121,6 +126,7 @@ function editTasks(index) {
   tType.innerHTML = `<td>${tasks[index].type}</td>`;
   localStorage.storage=JSON.stringify(tasks);
 });
+
 } 
 function deleteTask(index){
   tasks.splice(index,1);
@@ -131,8 +137,8 @@ function deleteTask(index){
 function stausVerification(index){
   let currentDate = new Date();
   let deadline = new Date(tasks[index].date);
-  let delai=(deadline-currentDate)/(1000*60*60*20);
-  console.log(delai);
+  let delai=(deadline-currentDate)/(1000*60*60*24);
+  let dalert=document.createElement("div");
   if(delai<=-1){
       return "red";
   }
